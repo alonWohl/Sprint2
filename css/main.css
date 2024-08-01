@@ -3,3 +3,8 @@
 *:after {
     box-sizing: border-box;
 }
+
+.editor-cotainer{
+    display: none;
+}
+
