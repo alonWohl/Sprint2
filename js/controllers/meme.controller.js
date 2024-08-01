@@ -10,21 +10,20 @@ function onInit() {
 }
 
 function renderMeme() {
+  let { selectedImgId: imgId, lines } = getMeme()
   let img = new Image()
-  img.src = `/img/1.jpg`
+  img.src = `/img/${imgId}.jpg`
 
   img.onload = function () {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 
-    gCtx.font = '50px Arial'
-    gCtx.textAlign = 'center'
-    gCtx.fillStyle = 'white'
+    lines.forEach(({txt,size,color}) => {
+      gCtx.font = `${size}px Arial`
+      gCtx.textAlign = 'center'
+      gCtx.fillStyle = `${color}`
 
-    let txt = 'hello world'
-    
-    gCtx.fillText(txt, gElCanvas.width/2 ,100 )
-    gCtx.strokeText(txt, gElCanvas.width/2 ,100 )
-}
-
-
+      gCtx.fillText(txt, gElCanvas.width / 2, 100)
+      gCtx.strokeText(txt, gElCanvas.width / 2, 100)
+    })
+  }
 }
