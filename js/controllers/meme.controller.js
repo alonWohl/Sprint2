@@ -27,3 +27,10 @@ function renderMeme() {
     })
   }
 }
+
+
+function setLineTxt(text){
+  let {selectedLineIdx,lines} = getMeme()
+  lines[selectedLineIdx].txt =text
+  renderMeme()
+}
