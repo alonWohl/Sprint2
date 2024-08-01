@@ -12,3 +12,9 @@ function renderGallery() {
 
   elGallery.innerHTML = strHtml.join('')
 }
+
+
+function onImgSelect(imgId){
+    setImg(imgId)
+    renderMeme()   
+}
