@@ -30,6 +30,14 @@ li {
 
 a.btn {
     padding: .3em;
+    text-decoration: none;
+    color: white;
+}
+
+.editor-container .btn{
+background-color: var(--secondary-base);
+border-radius: 6px;
+padding: 0.5em;
 }
 
 .main-header {
@@ -78,7 +86,6 @@ place-items: center;
 
 margin-block-start: 2em; ;
 }
-
 
 
 .hidden {
