@@ -15,6 +15,13 @@ function renderGallery() {
 
 
 function onImgSelect(imgId){
-    setImg(imgId)
-    renderMeme()   
+  const elGallery = document.querySelector('.gallery-container')
+  const elEditor =document.querySelector('.editor-container')
+  
+  elGallery.classList.add('hidden')
+  elEditor.classList.remove('hidden')
+
+  setImg(imgId)
+  renderMeme()   
+  
 }

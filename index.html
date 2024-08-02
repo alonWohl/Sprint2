@@ -13,7 +13,7 @@
 
       <nav class="nav-bar-container">  
         <ul class="main-nav">
-          <li><a class="btn">Gallery</a></li>
+          <li><a onclick="onToggleGallery()" class="btn">Gallery</a></li>
           <li><a class="btn">Saved</a></li>
           <li><a class="btn">About</a></li>
         </ul>
@@ -24,11 +24,12 @@
         
       </section>
 
-      <section class="editor-cotainer">
+      <section class="editor-container hidden">
         <canvas width="400" height="400"></canvas>
         <section class="form-container">
           <form class="editor-actions">
             <input oninput="setLineTxt(value)" name="meme-text" id="memeTxt" type="text">
+            <input oninput="setLineColor(value)" type="color" name="color-picker" id="colorPicker ">
           </form>
         </section>
       </section>

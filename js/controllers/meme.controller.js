@@ -35,3 +35,21 @@ function setLineTxt(text){
   lines[selectedLineIdx].txt =text
   renderMeme()
 }
+
+
+function setLineColor(color){
+  let {selectedLineIdx,lines} = getMeme()
+  lines[selectedLineIdx].color = color
+  renderMeme()
+}
+
+function onToggleGallery(){
+  const elGallery = document.querySelector('.gallery-container')
+  const elEditor = document.querySelector('.editor-container')
+
+  elGallery.classList.remove('hidden')
+  elEditor.classList.add('hidden')
+}
+
+
+

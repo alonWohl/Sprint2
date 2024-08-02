@@ -53,25 +53,34 @@ a.btn {
     margin: 25px;
 }
 
-.editor-cotainer{
-    display: none;
-}
-
-
- .gallery-container{
+.gallery-container{
     display: grid; 
     grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
     gap: 1em;
     padding: 1em;
- }
+}
 
- .gallery-img {
+.gallery-img {
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.3s ease;
-
-
- }
- .gallery-img:hover {
+    
+    
+}
+.gallery-img:hover {
     border-color: #000;
+}
+
+.editor-container{
+display: grid;
+grid-template-columns: 1fr 1fr;
+place-items: center;
+
+margin-block-start: 2em; ;
+}
+
+
+
+.hidden {
+    display: none;
 }
