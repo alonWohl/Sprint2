@@ -45,6 +45,10 @@ function getCurrLine() {
   return  gMeme.lines[selectedLineIdx]
 }
 
+function setSelectedLine(lineIdx){
+  gMeme.selectedLineIdx = lineIdx
+}
+
 function setLineTxt(text) {
   if (!gMeme.lines.length) return
   resetSelectedLine()
@@ -53,10 +57,14 @@ function setLineTxt(text) {
 }
 
 function setLineFillStyle(color) {
+  if (!gMeme.lines.length) return
+  resetSelectedLine()
   const lineIdx = gMeme.selectedLineIdx
   gMeme.lines[lineIdx].fillStyle = color
 }
 function setLineStrokeStyle(color) {
+  if (!gMeme.lines.length) return
+  resetSelectedLine()
   const lineIdx = gMeme.selectedLineIdx
   gMeme.lines[lineIdx].strokeStyle = color
 }
@@ -73,7 +81,12 @@ function addLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
+function setLinePos(dx,dy){
+  const {selectedLineIdx : lineIdx} = gMeme
 
+  gMeme.lines[lineIdx].pos.x += dx
+  gMeme.lines[lineIdx].pos.y += dy
+}
 
 function _createLine({
   txt = 'Add Text Here',
@@ -87,7 +100,7 @@ function _createLine({
   return {
     txt,
     size,
-    // font: gCurrFont,
+    font: 'Arial',
     align,
     strokeStyle,
     fillStyle,
