@@ -36,8 +36,13 @@ function getImgByUrl(imgUrl) {
   return gImgs.find((img) => img.url === imgUrl)
 }
 
-function setImg() {
+function getCurrImg() {
   return getImgById(gMeme.selectedImgId)
+}
+
+function getCurrLine() {
+  const {selectedLineIdx} = gMeme
+  return  gMeme.lines[selectedLineIdx]
 }
 
 function setLineTxt(text) {
@@ -56,11 +61,19 @@ function setLineStrokeStyle(color) {
   gMeme.lines[lineIdx].strokeStyle = color
 }
 
+function setLineSize(val){
+  if (!gMeme.lines.length) return
+  const lineIdx = gMeme.selectedLineIdx
+  gMeme.lines[lineIdx].size += val 
+}
+
 function addLine() {
   const newLine = _createLine(DEFAULT_LINE)
   gMeme.lines.push(newLine)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
+
+
 
 function _createLine({
   txt = 'Add Text Here',

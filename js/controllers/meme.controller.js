@@ -22,7 +22,7 @@ function renderMeme() {
   const meme = getMeme()
 
   if (!gElImg) {
-    const { url } = setImg()
+    const { url } = getCurrImg()
     gElImg = getElImg(url)
     gElImg.onload = () => renderImage(meme)
   } else {
@@ -33,6 +33,9 @@ function renderMeme() {
 function renderImage(meme) {
   gCtx.drawImage(gElImg, 0, 0, gElCanvas.width, gElCanvas.height)
   drawText(meme.lines)
+
+  const line = getCurrLine()
+  if (line) drawFrame(line)
 }
 
 function getElImg(url) {
@@ -69,7 +72,7 @@ function onSetStrokeColor(color) {
   renderMeme()
 }
 
-function onSwitchLine(){
+function onSwitchLine() {
   switchLine()
   updateEditorInputs()
   renderMeme()
@@ -77,11 +80,36 @@ function onSwitchLine(){
 
 function onAddLine() {
   const elTextInput = document.querySelector('#memeTxt')
-  elTextInput.value =''
+  elTextInput.value = ''
   addLine()
   renderMeme()
 }
 
+function onChangeFontSize(val){
+  setLineSize(val)
+  renderMeme()
+}
+
+function drawFrame(line) {
+  gCtx.save()
+  gCtx.lineWidth = 3
+  gCtx.strokeStyle = 'red'
+
+  let { x, y } = line.pos
+  y -=line.size
+  if (line.align === 'center') {
+    x -= textWidth / 2;
+} else if (line.align === 'right') {
+    x -= textWidth;
+}
+
+  const textWidth = gCtx.measureText(line.txt).width
+
+  gCtx.beginPath()
+  gCtx.rect(x, y, textWidth, line.size)
+  gCtx.stroke()
+  gCtx.restore()
+}
 
 function updateEditorInputs() {
   const meme = getMeme()
@@ -110,10 +138,8 @@ function downloadImg(elLink) {
   elLink.href = imgContent
 }
 
-
-function resetInputs(){
+function resetInputs() {
   const elTextInput = document.querySelector('#memeTxt')
   elTextInput.value = ''
   updateEditorInputs()
-
 }
