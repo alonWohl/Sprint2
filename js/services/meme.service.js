@@ -32,7 +32,7 @@ function getImgById(imgId) {
   return gImgs.find((img) => img.id === imgId)
 }
 
-function getImgByUrl(imgUrl){
+function getImgByUrl(imgUrl) {
   return gImgs.find((img) => img.url === imgUrl)
 }
 
@@ -41,7 +41,7 @@ function setImg() {
 }
 
 function setLineTxt(text) {
-  if(!gMeme.lines.length) return
+  if (!gMeme.lines.length) return
   resetSelectedLine()
   const lineIdx = gMeme.selectedLineIdx
   gMeme.lines[lineIdx].txt = text || 'Add Text Here'
@@ -53,7 +53,7 @@ function setLineFillStyle(color) {
 }
 function setLineStrokeStyle(color) {
   const lineIdx = gMeme.selectedLineIdx
-  gMeme.lines[lineIdx].fillStyle = color
+  gMeme.lines[lineIdx].strokeStyle = color
 }
 
 function addLine() {
@@ -82,23 +82,25 @@ function _createLine({
   }
 }
 
+function switchLine() {
+  gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gMeme.lines.length
+}
+
 function setMeme(img) {
   let lines
   lines = [_createLine(DEFAULT_LINE)]
 
+  let memeImg = getImgByUrl(img.getAttribute('src'))
 
-let memeImg = getImgByUrl(img.getAttribute('src'))
-
-
-gMeme = {
-  selectedImgId: memeImg.id,
-  selectedLineIdx: 0,
-  lines
-}
+  gMeme = {
+    selectedImgId: memeImg.id,
+    selectedLineIdx: 0,
+    lines,
+  }
 }
 
 function resetSelectedLine() {
   if (gMeme.selectedLineIdx === -1) {
-      gMeme.selectedLineIdx = 0;
+    gMeme.selectedLineIdx = 0
   }
 }
