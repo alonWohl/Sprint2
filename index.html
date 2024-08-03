@@ -28,8 +28,9 @@
         <canvas width="400" height="400"></canvas>
         <section class="form-container">
           <form class="editor-actions">
-            <input oninput="setLineTxt(value)" name="meme-text" id="memeTxt" type="text">
-            <input oninput="setLineColor(value)" type="color" name="color-picker" id="colorPicker ">
+            <input oninput="onSetLineTxt(value)" name="meme-text" id="memeTxt" type="text">
+            <input oninput="onSetLineColor(value)" type="color" name="color-picker" id="colorPicker ">
+            <button type="button" onclick="onAddLine()" class="btn">Add Line</button>
             <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
           </form>
         </section>

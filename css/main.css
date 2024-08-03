@@ -24,20 +24,22 @@ li {
     list-style-type: none;
 }
 
-.btn{
+.btn {
     cursor: pointer;
-}
-
-a.btn {
-    padding: .3em;
+    
+    font-size: 1em;
     text-decoration: none;
     color: white;
+
 }
 
-.editor-container .btn{
-background-color: var(--secondary-base);
-border-radius: 6px;
-padding: 0.5em;
+
+.editor-container .btn {
+    background-color: var(--secondary-base);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em;
 }
 
 .main-header {
@@ -52,18 +54,21 @@ padding: 0.5em;
 .main-header .logo {
     font-size: 1.2em;
     margin: 25px;
-    
+
 }
 
 .main-nav {
     display: flex;
     align-items: center;
+}
+
+.main-nav a {
     margin: 25px;
 }
 
-.gallery-container{
-    display: grid; 
-    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1em;
     padding: 1em;
 }
@@ -72,19 +77,21 @@ padding: 0.5em;
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.3s ease;
-    
-    
+
+
 }
+
 .gallery-img:hover {
     border-color: #000;
 }
 
-.editor-container{
-display: grid;
-grid-template-columns: 1fr 1fr;
-place-items: center;
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
 
-margin-block-start: 2em; ;
+    margin-block-start: 2em;
+    ;
 }
 
 

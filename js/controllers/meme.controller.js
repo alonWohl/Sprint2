@@ -2,57 +2,84 @@
 
 let gElCanvas
 let gCtx
+let gElImg
 
-function onInit() {
-  gElCanvas = document.querySelector('canvas')
-  gCtx = gElCanvas.getContext('2d')
+
+function openEditor(){
+  const elGallery = document.querySelector('.gallery-container')
+  const elEditor =document.querySelector('.editor-container')
+  gElCanvas =document.querySelector('canvas')
+  gCtx =gElCanvas.getContext('2d')
+
+  gElImg =null
+  elGallery.classList.add('hidden')
+  elEditor.classList.remove('hidden')
+
   renderMeme()
-  renderGallery()
 }
 
 function renderMeme() {
-  let { selectedImgId: imgId, lines } = getMeme()
-  let img = new Image()
-  img.src = `/img/${imgId}.jpg`
+  const meme = getMeme()
 
-  img.onload = function () {
-    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-
-    lines.forEach(({txt,size,color}) => {
-      gCtx.font = `${size}px Arial`
-      gCtx.textAlign = 'center'
-      gCtx.fillStyle = `${color}`
-
-      gCtx.fillText(txt, gElCanvas.width / 2, 100)
-      gCtx.strokeText(txt, gElCanvas.width / 2, 100)
-    })
+  if (!gElImg) {
+    const { url } = setImg()
+    gElImg = getElImg(url)
+    gElImg.onload = () => renderImage(meme)
+  } else {
+    renderImage(meme)
   }
 }
 
+function renderImage(meme) {
+  gCtx.drawImage(gElImg, 0, 0, gElCanvas.width, gElCanvas.height)
+  drawText(meme.lines)
+}
 
-function setLineTxt(text){
-  let {selectedLineIdx,lines} = getMeme()
-  lines[selectedLineIdx].txt =text
+function getElImg(url) {
+  const img = new Image()
+  img.src = url
+  img.alt = 'image'
+  return img
+}
+
+function drawText(lines) {
+  lines.forEach((line) => {
+    const { x, y } = line.pos
+    gCtx.strokeStyle = line.strokeStyle
+    gCtx.fillStyle = line.fillStyle
+    gCtx.textAlign = line.align
+    gCtx.font = `${line.size}px Arial `
+
+    gCtx.fillText(line.txt, x, y)
+    gCtx.strokeText(line.txt, x, y)
+  })
+}
+
+function onSetLineTxt(text) {
+  setLineTxt(text)
   renderMeme()
 }
 
-
-function setLineColor(color){
-  let {selectedLineIdx,lines} = getMeme()
-  lines[selectedLineIdx].color = color
+function onSetLineColor(color) {
+  setLineFillStyle(color)
   renderMeme()
 }
 
-function onToggleGallery(){
+function onToggleGallery() {
   const elGallery = document.querySelector('.gallery-container')
   const elEditor = document.querySelector('.editor-container')
+  gElImg = null
+  
 
   elGallery.classList.remove('hidden')
   elEditor.classList.add('hidden')
 }
 
 function downloadImg(elLink) {
-  const imgContent = gElCanvas.toDataURL('image/jpeg') 
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
   elLink.href = imgContent
 }
-
+function onAddLine() {
+  addLine()
+  renderMeme()
+}

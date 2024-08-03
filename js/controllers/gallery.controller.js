@@ -1,5 +1,12 @@
 'use strict'
 
+let gGalleryRendered =false
+
+function onInit() {
+
+  if (!gGalleryRendered) renderGallery()
+}
+
 function renderGallery() {
   const images = getImgs()
   const elGallery = document.querySelector('.gallery-container')
@@ -8,20 +15,15 @@ function renderGallery() {
     ({ id, url, keywords }) => `
   <img src="${url}" 
   alt="${keywords.join(', ')}"
-  class="gallery-img" onclick="onImgSelect(${id})">`)
+  class="gallery-img" onclick="onImgSelect(this)">`)
 
   elGallery.innerHTML = strHtml.join('')
+  gGalleryRendered = true
 }
 
 
-function onImgSelect(imgId){
-  const elGallery = document.querySelector('.gallery-container')
-  const elEditor =document.querySelector('.editor-container')
-  
-  elGallery.classList.add('hidden')
-  elEditor.classList.remove('hidden')
-
-  setImg(imgId)
-  renderMeme()   
+function onImgSelect(elImg){
+  setMeme(elImg)
+  openEditor()
   
 }
