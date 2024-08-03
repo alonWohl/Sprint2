@@ -1,5 +1,19 @@
 'use strict'
 
+const FONTS = [
+  'arial',
+  'times new roman',
+  'courier new',
+  'verdana',
+  'georgia',
+  'poppins',
+  'impact',
+  'trebuchet ms',
+  'garamond',
+  'tahoma',
+  'brush script mt',
+]
+
 const DEFAULT_LINE = {
   txt: 'Add Text Here',
   size: 40,
@@ -14,11 +28,8 @@ let gImgs = [
   { id: 2, url: 'img/2.jpg', keywords: ['funny', 'cat'] },
 ]
 
-let gMeme = {
-  // selectedImgId: 1,
-  // selectedLineIdx: 0,
-  // lines: [{ txt: 'I sometimes eat Falafel', size: 20, color: 'red' }],
-}
+let gMeme = {}
+let gCurrFont = 'arial'
 
 function getMeme() {
   return gMeme
@@ -26,6 +37,10 @@ function getMeme() {
 
 function getImgs() {
   return gImgs
+}
+
+function getFonts() {
+  return FONTS
 }
 
 function getImgById(imgId) {
@@ -41,11 +56,11 @@ function getCurrImg() {
 }
 
 function getCurrLine() {
-  const {selectedLineIdx} = gMeme
-  return  gMeme.lines[selectedLineIdx]
+  const lineIdx = gMeme.selectedLineIdx
+  return gMeme.lines[lineIdx]
 }
 
-function setSelectedLine(lineIdx){
+function setSelectedLine(lineIdx) {
   gMeme.selectedLineIdx = lineIdx
 }
 
@@ -69,10 +84,11 @@ function setLineStrokeStyle(color) {
   gMeme.lines[lineIdx].strokeStyle = color
 }
 
-function setLineSize(val){
+function setLineSize(val) {
   if (!gMeme.lines.length) return
+  resetSelectedLine()
   const lineIdx = gMeme.selectedLineIdx
-  gMeme.lines[lineIdx].size += val 
+  gMeme.lines[lineIdx].size += val
 }
 
 function addLine() {
@@ -81,11 +97,32 @@ function addLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
-function setLinePos(dx,dy){
-  const {selectedLineIdx : lineIdx} = gMeme
+function removeLine() {
+  if (gMeme.selectedLineIdx === -1) return
+  gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+  gMeme.selectedLineIdx--
+}
+
+function setLinePos(dx, dy) {
+  const { selectedLineIdx: lineIdx } = gMeme
 
   gMeme.lines[lineIdx].pos.x += dx
   gMeme.lines[lineIdx].pos.y += dy
+}
+
+function setFontFamily(font) {
+  gCurrFont = font
+  if (!gMeme.lines.length) return
+  resetSelectedLine()
+  const lineIdx = gMeme.selectedLineIdx
+  gMeme.lines[lineIdx].font = font
+}
+
+function setLineAlign(align) {
+  if (!gMeme.lines.length) return
+  resetSelectedLine()
+  const selectedLineIdx = gMeme.selectedLineIdx
+  gMeme.lines[selectedLineIdx].align = align
 }
 
 function _createLine({
@@ -100,7 +137,7 @@ function _createLine({
   return {
     txt,
     size,
-    font: 'Arial',
+    font: gCurrFont,
     align,
     strokeStyle,
     fillStyle,
@@ -129,4 +166,8 @@ function resetSelectedLine() {
   if (gMeme.selectedLineIdx === -1) {
     gMeme.selectedLineIdx = 0
   }
+}
+
+function setLineEmpty() {
+  gMeme.selectedLineIdx = -1
 }

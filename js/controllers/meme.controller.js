@@ -17,11 +17,13 @@ function openEditor() {
   const elEditor = document.querySelector('.editor-container')
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
+  gCtx.lineWidth = '3'
 
   gElImg = null
   elGallery.classList.add('hidden')
   elEditor.classList.remove('hidden')
 
+  renderFonts()
   renderMeme()
   resetInputs()
 
@@ -74,6 +76,12 @@ function getElImg(url) {
 function onDown(ev) {
   const pos = getEvPos(ev)
   const clickedLineIdx = findClickedLineIdx(pos)
+
+  if (clickedLineIdx === -1) {
+    setLineEmpty()
+    renderMeme()
+    return
+  }
 
   ev.preventDefault()
   onSetSelectedLine(clickedLineIdx)
@@ -139,16 +147,18 @@ function drawFrame(line) {
 
   let { x, y } = line.pos
   y -= line.size
+
+  const textWidth = gCtx.measureText(line.txt).width
   if (line.align === 'center') {
     x -= textWidth / 2
   } else if (line.align === 'right') {
     x -= textWidth
   }
 
-  const textWidth = gCtx.measureText(line.txt).width
-
+  x -= CLICK_MARGIN
+  gCtx.font = `${line.size}px ${line.font}`
   gCtx.beginPath()
-  gCtx.rect(x, y, textWidth + CLICK_MARGIN *2 , line.size + CLICK_MARGIN)
+  gCtx.rect(x, y, textWidth + CLICK_MARGIN * 2, line.size + CLICK_MARGIN)
   gCtx.stroke()
   gCtx.restore()
 }
@@ -171,7 +181,7 @@ function onSetSelectedLine(lineIdx) {
   const currLine = getCurrLine()
 
   if (currLine.txt !== 'Add Text Here') {
-    document.querySelector('.meme-text-input').value = currLine.txt
+    document.querySelector('#memeTxt').value = currLine.txt
   }
 
   updateEditorInputs()
@@ -200,7 +210,15 @@ function onSwitchLine() {
 function onAddLine() {
   const elTextInput = document.querySelector('#memeTxt')
   elTextInput.value = ''
+  elTextInput.focus()
   addLine()
+  renderMeme()
+}
+
+function onRemoveLine() {
+  const elTextInput = document.querySelector('#memeTxt')
+  elTextInput.value = ''
+  removeLine()
   renderMeme()
 }
 
@@ -240,4 +258,25 @@ function resetInputs() {
   const elTextInput = document.querySelector('#memeTxt')
   elTextInput.value = ''
   updateEditorInputs()
+}
+
+function renderFonts() {
+  const fonts = getFonts()
+  const elFontSelect = document.querySelector('#fontFamily')
+
+  const options = fonts
+    .map(
+      (font) => `<option value"${font}">${font.toLocaleUpperCase()}</option>`
+    )
+    .join('')
+  elFontSelect.innerHTML = options
+}
+
+function onSetFontFamily(font) {
+  setFontFamily(font.value)
+  renderMeme()
+}
+function onSetLineAlign(alignment) {
+  setLineAlign(alignment)
+  renderMeme()
 }

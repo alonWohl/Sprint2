@@ -32,9 +32,18 @@
             <input oninput="onSetFillColor(this)" type="color" name="fill-picker" id="fillPicker">
             <input oninput="onSetStrokeColor(this)" type="color" name="stroke-picker" id="strokePicker">
             <button type="button" onclick="onAddLine()" class="btn">Add Line</button>
+            <button type="button" onclick="onRemoveLine()" class="btn">Delete Line</button>
             <button type="button" onclick="onSwitchLine()" class="btn">🔃</button>
+            <select onchange="onSetFontFamily(this)" name="font-family" id="fontFamily">
+            </select>
             <button type="button" onclick="onChangeFontSize(+2)" class="btn">+</button>
             <button type="button" onclick="onChangeFontSize(-2)" class="btn">-</button>
+
+            <button type="button" onclick="onSetLineAlign('center')" class="btn">center</button>
+            <button type="button" onclick="onSetLineAlign('left')" class="btn">left</button>
+            <button type="button" onclick="onSetLineAlign('right')" class="btn">right</button>
+
+
             <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
           </form>
         </section>
