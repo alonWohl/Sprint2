@@ -25,6 +25,10 @@ function openEditor() {
   gCtx = gElCanvas.getContext('2d')
   gCtx.lineWidth = '3'
 
+  gElImg = null
+  elGallery.classList.add('hidden')
+  elEditor.classList.remove('hidden')
+
   renderFonts()
   renderMeme()
   resetInputs()
@@ -254,6 +258,7 @@ function updateEditorInputs() {
   elFillPicker.value = currLine.fillStyle || '#FFFFFF'
 }
 
+
 function downloadImg(elLink) {
   const imgContent = gElCanvas.toDataURL('image/jpeg')
   elLink.href = imgContent
@@ -285,3 +290,4 @@ function onSetLineAlign(alignment) {
   setLineAlign(alignment)
   renderMeme()
 }
+
