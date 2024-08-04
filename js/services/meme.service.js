@@ -1,46 +1,41 @@
 'use strict'
 
-const FONTS = [
-  'arial',
-  'times new roman',
-  'courier new',
-  'verdana',
-  'georgia',
-  'poppins',
-  'impact',
-  'trebuchet ms',
-  'garamond',
-  'tahoma',
-  'brush script mt',
-]
+const MEME_STORAGE_KEY = 'MEME'
+const IMG_STORAGE_KEY = 'IMG'
 
-const DEFAULT_LINE = {
-  txt: 'Add Text Here',
-  size: 40,
-  align: 'left',
-  strokeStyle: '#000000',
-  fillStyle: '#ffffff',
-}
+
+const FONTS = ['impact','arial','times new roman','courier new','verdana','georgia','poppins','trebuchet ms','garamond','tahoma','brush script mt',]
+const DEFAULT_LINE = {txt: 'Add Text Here',size: 40,align: 'left',strokeStyle: '#000000',fillStyle: '#ffffff',}
+const KEY_WORDS = ['funny', 'cat', 'sad', 'happy', 'akward', 'bad']
+const keywordsMap = { funny: 20, cat: 15, sad: 25, happy: 13, akward: 30, bad: 15,}
+
 let gLinePos = { x: 50, y: 0 }
-
-let gImgs = [
-  { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
-  { id: 2, url: 'img/2.jpg', keywords: ['funny', 'cat'] },
-]
-
+let gImgs = []
 let gMeme = {}
-let gCurrFont = 'arial'
+let gCurrFont = 'Impact'
+
+_createImgs()
 
 function getMeme() {
   return gMeme
 }
 
-function getImgs() {
-  return gImgs
+function getImgs(filter) {
+  if (filter)
+    return gImgs.filter((img) =>
+      img.keywords.some((keyword) =>
+        keyword.toLowerCase().includes(filter.toLowerCase())
+      )
+    )
+   return gImgs
 }
 
 function getFonts() {
   return FONTS
+}
+
+function getKeyWordsMap() {
+  return keywordsMap
 }
 
 function getImgById(imgId) {
@@ -145,6 +140,21 @@ function _createLine({
   }
 }
 
+function _createImgs() {
+  for (let i = 1; i < 19; i++) {
+    const img = _createImg(i)
+    gImgs.push(img)
+  }
+}
+
+function _createImg(i) {
+  return {
+    id: i,
+    url: `img/${i}.jpg`,
+    keywords: getRandomKeyWords(KEY_WORDS),
+  }
+}
+
 function switchLine() {
   gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gMeme.lines.length
 }
@@ -170,4 +180,24 @@ function resetSelectedLine() {
 
 function setLineEmpty() {
   gMeme.selectedLineIdx = -1
+}
+
+function getRandomKeyWords(keywords) {
+  const copyArray = [...keywords]
+
+  const numberOfWords = getRandomInt(1, keywords.length)
+  const randomWords = []
+
+  for (let i = 0; i < numberOfWords; i++) {
+    if (copyArray.length === 0) break
+
+    const randomIndex = getRandomIndex(copyArray)
+    randomWords.push(copyArray.splice(randomIndex, 1)[0])
+  }
+
+  return randomWords
+}
+
+function updateKeyWordMap(keyword, count) {
+  keywordsMap[keyword] = count
 }

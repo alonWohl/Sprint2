@@ -27,7 +27,9 @@ li {
     padding: 0;
     list-style-type: none;
 }
-
+button {
+    cursor: pointer;
+}
 
 .main-header {
     display: flex;
@@ -43,6 +45,7 @@ li {
 .main-header .logo {
     font-size: 1.5em;
     font-weight: bold;
+    margin-inline-start: 25px;
 }
 
 .nav-bar-container {
@@ -160,8 +163,6 @@ li {
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.3s ease;
-
-
 }
 
 .gallery-img:hover {
@@ -175,6 +176,30 @@ li {
     color: #fff;
   }
 
+  
+.filter-section{
+display: flex;
+justify-content: space-between;
+padding: 1em;
+}
+
+.key-words-container{
+    margin-inline-end: 1em;
+}
+
+.key-words-container button {
+    font-family: Arial, sans-serif;
+    border: none;
+    color: black;
+
+}
+
 .hidden {
     display: none;
+}
+
+@media (width < 740px ) {
+    .editor-page {
+        flex-direction: column;
+    }
 }

@@ -12,14 +12,39 @@
 
       <nav class="nav-bar-container">
         <ul class="main-nav">
-          <li><a onclick="onToggleGallery()" class="btn">Gallery</a></li>
+          <li><a onclick="onInit()" class="btn gallery-btn">Gallery</a></li>
           <li><a class="btn">Saved</a></li>
           <li><a class="btn">About</a></li>
         </ul>
       </nav>
     </header>
 
-    <section class="gallery-container"></section>
+    <section class="filter-section">
+      <div class="filter-search">
+        <input class="search-meme" type="search" list="key-words" placeholder="search" oninput="onSearchMeme(this.value)">
+        
+        <datalist id="key-words">
+          <option value="funny">funny</option>                                       
+          <option value="cat">cat</option>
+          <option value="sad">sad</option>
+          <option value="happy">happy</option>
+          <option value="akward">akward</option>
+          <option value="bad">bad</option>
+        </datalist>
+      </div>
+
+      <div class="key-words-container">
+        <button onclick="onClickedKeyword(this.value)" value="funny">funny</button>
+        <button onclick="onClickedKeyword(this.value)" value="cat">cat</button>
+        <button onclick="onClickedKeyword(this.value)" value="sad">sad</button>
+        <button onclick="onClickedKeyword(this.value)" value="happy">happy</button>
+        <button onclick="onClickedKeyword(this.value)" value="akward">akward</button>
+        <button onclick="onClickedKeyword(this.value)" value="sad">sad</button>
+      </div>
+
+    </section>
+    <section class="gallery-container">
+    </section>
 
     <section class="editor-page hidden">
 

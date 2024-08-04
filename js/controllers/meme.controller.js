@@ -14,15 +14,16 @@ let gIsListenersAdded = false,
   gIsDrag = false
 
 function openEditor() {
-  const elGallery = document.querySelector('.gallery-container')
-  const elEditor = document.querySelector('.editor-page')
+  document.querySelector('.gallery-btn').classList.remove('hidden')
+  document.querySelector('.filter-section').classList.add('hidden')
+
+  document.querySelector('.gallery-container').classList.add('hidden')
+  document.querySelector('.editor-page').classList.remove('hidden')
+
+  gElImg = null
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   gCtx.lineWidth = '3'
-
-  gElImg = null
-  elGallery.classList.add('hidden')
-  elEditor.classList.remove('hidden')
 
   renderFonts()
   renderMeme()
@@ -251,15 +252,6 @@ function updateEditorInputs() {
   elTextInput.value = currLine.txt || ''
   elStrokePicker.value = currLine.strokeStyle || '#000000'
   elFillPicker.value = currLine.fillStyle || '#FFFFFF'
-}
-
-function onToggleGallery() {
-  const elGallery = document.querySelector('.gallery-container')
-  const elEditor = document.querySelector('.editor-page')
-  gElImg = null
-
-  elGallery.classList.remove('hidden')
-  elEditor.classList.add('hidden')
 }
 
 function downloadImg(elLink) {
