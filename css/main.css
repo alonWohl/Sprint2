@@ -190,6 +190,7 @@ padding: 1em;
 .key-words-container button {
     font-family: Arial, sans-serif;
     border: none;
+    background-color: transparent;
     color: black;
 
 }
