@@ -7,11 +7,10 @@
     <title>Meme Generator</title>
   </head>
   <body onload="onInit()">
-
     <header class="main-header">
       <div class="logo">memegen</div>
 
-      <nav class="nav-bar-container">  
+      <nav class="nav-bar-container">
         <ul class="main-nav">
           <li><a onclick="onToggleGallery()" class="btn">Gallery</a></li>
           <li><a class="btn">Saved</a></li>
@@ -20,40 +19,52 @@
       </nav>
     </header>
 
-      <section class="gallery-container">
-        
-      </section>
+    <section class="gallery-container"></section>
 
-      <section class="editor-container hidden">
-        <canvas width="500" height="500"></canvas>
-        <section class="form-container">
-          <form class="editor-actions">
-            <input oninput="onSetLineTxt(this)" name="meme-text" id="memeTxt" type="text">
-            <input oninput="onSetFillColor(this)" type="color" name="fill-picker" id="fillPicker">
-            <input oninput="onSetStrokeColor(this)" type="color" name="stroke-picker" id="strokePicker">
-            <button type="button" onclick="onAddLine()" class="btn">Add Line</button>
-            <button type="button" onclick="onRemoveLine()" class="btn">Delete Line</button>
-            <button type="button" onclick="onSwitchLine()" class="btn">🔃</button>
-            <select onchange="onSetFontFamily(this)" name="font-family" id="fontFamily">
-            </select>
-            <button type="button" onclick="onChangeFontSize(+2)" class="btn">+</button>
-            <button type="button" onclick="onChangeFontSize(-2)" class="btn">-</button>
+    <section class="editor-page hidden">
 
-            <button type="button" onclick="onSetLineAlign('center')" class="btn">center</button>
-            <button type="button" onclick="onSetLineAlign('left')" class="btn">left</button>
-            <button type="button" onclick="onSetLineAlign('right')" class="btn">right</button>
+    <div class="meme-canvas">
+      <canvas width="500" height="500"></canvas>
+    </div>
 
+    <div class="editor-controls">
+      <input oninput="onSetLineTxt(this)" class="meme-text-input" type="text"/>
+      
+      <div class="controls">
+      <div class="button-group">
+        <button onclick="onSwitchLine()" class="btn icon"><img src="/svg/up-and-down.svg" alt="" /> </button>
+        <button onclick="onAddLine()" class="btn icon"><img src="./svg/add.svg" alt="" /> </button>
+        <button onclick="onRemoveLine()" class="btn icon"><img src="./svg/trash.svg" alt="" /></button>
+      </div>
 
-            <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
-          </form>
-        </section>
-      </section>
+      <div class="button-group">
+        <button onclick="onChangeFontSize(+2)" class="btn icon"><img src="./svg/increase font - icon.svg" alt="" /></button>
+        <button onclick="onChangeFontSize(-2)" class="btn icon"><img src="./svg/decrease font - icon.svg" /></button>
+        <button onclick="onSetLineAlign('left')" class="btn icon"><img src="./svg/align-to-left.svg" alt="" /></button> 
+         <button onclick="onSetLineAlign('center')" class="btn icon"><img src="./svg/center-text-alignment.svg" alt="" /></button> 
+         <button onclick="onSetLineAlign('right')" class="btn icon"><img src="./svg/align-to-right.svg" alt="" /></button>
+      </div>
 
-      <script src="/js/services/util.service.js"></script>
-      <script src="/js/services/storage.service.js"></script>
-      <script src="/js/services/meme.service.js"></script>
-      <script src="/js/controllers/gallery.controller.js"></script>
-      <script src="/js/controllers/meme.controller.js"></script>
+<div class="button-group">
+  <select onchange="onSetFontFamily(this)" id="fontFamily"></select>
+  <button class="btn icon"><img src="./svg/paint-board-and-brush.svg" class="fill-icon btn icon"><input oninput="onSetFillColor(this)" type="color" id="fillPicker"/></button>
+  <button class="btn icon"><img src="./svg/text stroke.svg" alt=""><input oninput="onSetStrokeColor(this)"  type="color" id="strokePicker"></button>
+</div>
+</div>
 
+<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+</div>
+    </section>
+
+    <footer class="main-footer">
+      <p>memegen</p>
+      <p>all rights reserved 2024</p>
+    </footer>
+
+    <script src="/js/services/util.service.js"></script>
+    <script src="/js/services/storage.service.js"></script>
+    <script src="/js/services/meme.service.js"></script>
+    <script src="/js/controllers/gallery.controller.js"></script>
+    <script src="/js/controllers/meme.controller.js"></script>
   </body>
 </html>

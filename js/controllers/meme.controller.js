@@ -6,6 +6,7 @@ const CLICK_MARGIN = 10
 let gElCanvas
 let gCtx
 let gElImg
+let gStartPos = {}
 
 let gIsListenersAdded = false,
   gIsMouseDown = false,
@@ -14,7 +15,7 @@ let gIsListenersAdded = false,
 
 function openEditor() {
   const elGallery = document.querySelector('.gallery-container')
-  const elEditor = document.querySelector('.editor-container')
+  const elEditor = document.querySelector('.editor-page')
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   gCtx.lineWidth = '3'
@@ -86,13 +87,25 @@ function onDown(ev) {
   ev.preventDefault()
   onSetSelectedLine(clickedLineIdx)
   renderMeme()
+
+  gIsDrag = true
+  gStartPos = { x: pos.x, y: pos.y }
 }
 
 function onMove(ev) {
-  // console.log("🚀 ~ onMove ~ ev:", ev)
+  if (!gIsMouseDown || !gIsDrag) return
+
+  const pos = getEvPos(ev)
+  const dx = pos.x - gStartPos.x
+  const dy = pos.y - gStartPos.y
+
+  gStartPos = { x: pos.x, y: pos.y }
+  setLinePos(dx, dy)
+  renderMeme()
 }
-function onUp(ev) {
-  // console.log("🚀 ~ onUp ~ ev:", ev)
+
+function onUp() {
+  gIsDrag = false
 }
 
 function getEvPos(ev) {
@@ -181,7 +194,7 @@ function onSetSelectedLine(lineIdx) {
   const currLine = getCurrLine()
 
   if (currLine.txt !== 'Add Text Here') {
-    document.querySelector('#memeTxt').value = currLine.txt
+    document.querySelector('.meme-text-input').value = currLine.txt
   }
 
   updateEditorInputs()
@@ -208,7 +221,7 @@ function onSwitchLine() {
 }
 
 function onAddLine() {
-  const elTextInput = document.querySelector('#memeTxt')
+  const elTextInput = document.querySelector('.meme-text-input')
   elTextInput.value = ''
   elTextInput.focus()
   addLine()
@@ -216,7 +229,7 @@ function onAddLine() {
 }
 
 function onRemoveLine() {
-  const elTextInput = document.querySelector('#memeTxt')
+  const elTextInput = document.querySelector('.meme-text-input')
   elTextInput.value = ''
   removeLine()
   renderMeme()
@@ -231,7 +244,7 @@ function updateEditorInputs() {
   const meme = getMeme()
   const currLine = meme.lines[meme.selectedLineIdx] || {}
 
-  const elTextInput = document.querySelector('#memeTxt')
+  const elTextInput = document.querySelector('.meme-text-input')
   const elStrokePicker = document.querySelector('#strokePicker')
   const elFillPicker = document.querySelector('#fillPicker')
 
@@ -242,7 +255,7 @@ function updateEditorInputs() {
 
 function onToggleGallery() {
   const elGallery = document.querySelector('.gallery-container')
-  const elEditor = document.querySelector('.editor-container')
+  const elEditor = document.querySelector('.editor-page')
   gElImg = null
 
   elGallery.classList.remove('hidden')
@@ -255,7 +268,7 @@ function downloadImg(elLink) {
 }
 
 function resetInputs() {
-  const elTextInput = document.querySelector('#memeTxt')
+  const elTextInput = document.querySelector('.meme-text-input')
   elTextInput.value = ''
   updateEditorInputs()
 }
