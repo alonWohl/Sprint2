@@ -25,9 +25,6 @@ function openEditor() {
   gCtx = gElCanvas.getContext('2d')
   gCtx.lineWidth = '3'
 
-  gElImg = null
-  elGallery.classList.add('hidden')
-  elEditor.classList.remove('hidden')
 
   renderFonts()
   renderMeme()
