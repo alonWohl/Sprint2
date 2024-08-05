@@ -46,6 +46,12 @@ function addCanvasEventListeners() {
   document.addEventListener('touchstart', () => (gIsMouseDown = true))
   document.addEventListener('touchend', () => (gIsMouseDown = false))
 
+  window.addEventListener('resize', () => {
+    resizeCanvas()
+    renderMeme()
+
+  })
+
   gIsListenersAdded = true
 }
 
@@ -62,6 +68,7 @@ function renderMeme() {
 }
 
 function renderImage(meme) {
+  
   gCtx.drawImage(gElImg, 0, 0, gElCanvas.width, gElCanvas.height)
   drawText(meme.lines)
 
@@ -257,6 +264,7 @@ function updateEditorInputs() {
 
 
 function downloadImg(elLink) {
+
   const imgContent = gElCanvas.toDataURL('image/jpeg')
   elLink.href = imgContent
 }
@@ -288,3 +296,9 @@ function onSetLineAlign(alignment) {
   renderMeme()
 }
 
+function resizeCanvas() {
+  const elContainer = document.querySelector('.meme-canvas')
+
+  gElCanvas.width = elContainer.clientWidth - 10
+renderMeme()
+}

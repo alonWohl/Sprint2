@@ -127,8 +127,9 @@ function _createLine({
   strokeStyle = '#000000',
   fillStyle = '#ffffff',
 } = {}) {
-  gLinePos.x += 50
+  gLinePos.x += 10
   gLinePos.y += 50
+  
   return {
     txt,
     size,
