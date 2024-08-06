@@ -3,11 +3,35 @@
 const MEME_STORAGE_KEY = 'MEME'
 const IMG_STORAGE_KEY = 'IMG'
 
-
-const FONTS = ['impact','arial','times new roman','courier new','verdana','georgia','poppins','trebuchet ms','garamond','tahoma','brush script mt',]
-const DEFAULT_LINE = {txt: 'Add Text Here',size: 40,align: 'left',strokeStyle: '#000000',fillStyle: '#ffffff',}
+const FONTS = [
+  'impact',
+  'arial',
+  'times new roman',
+  'courier new',
+  'verdana',
+  'georgia',
+  'poppins',
+  'trebuchet ms',
+  'garamond',
+  'tahoma',
+  'brush script mt',
+]
+const DEFAULT_LINE = {
+  txt: 'Add Text Here',
+  size: 40,
+  align: 'left',
+  strokeStyle: '#000000',
+  fillStyle: '#ffffff',
+}
 const KEY_WORDS = ['funny', 'cat', 'sad', 'happy', 'akward', 'bad']
-const keywordsMap = { funny: 20, cat: 15, sad: 25, happy: 13, akward: 30, bad: 15,}
+const keywordsMap = {
+  funny: 20,
+  cat: 15,
+  sad: 25,
+  happy: 13,
+  akward: 30,
+  bad: 15,
+}
 
 let gLinePos = { x: 50, y: 0 }
 let gImgs = []
@@ -27,7 +51,7 @@ function getImgs(filter) {
         keyword.toLowerCase().includes(filter.toLowerCase())
       )
     )
-   return gImgs
+  return gImgs
 }
 
 function getFonts() {
@@ -129,7 +153,7 @@ function _createLine({
 } = {}) {
   gLinePos.x += 10
   gLinePos.y += 50
-  
+
   return {
     txt,
     size,

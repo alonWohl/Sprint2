@@ -8,7 +8,6 @@ function onInit() {
   document.querySelector('.gallery-btn').classList.add('hidden')
   document.querySelector('.editor-page').classList.add('hidden')
 
-
   if (!gGalleryRendered) renderGallery()
   renderKeywordsSize()
 }
@@ -21,7 +20,7 @@ function renderGallery(filter) {
     ({ id, url, keywords }) => `
   <img src="${url}" 
   alt="${keywords.join(', ')}"
-  class="gallery-img" onclick="onImgSelect(this)">`
+  class="gallery-img" onclick="onImgSelect(this)"> `
   )
 
   elGallery.innerHTML = strHtml.join('')
