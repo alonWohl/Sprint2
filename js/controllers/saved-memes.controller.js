@@ -19,9 +19,9 @@ function renderSaved() {
     .map(
       (img, index) =>
         `<article class="meme-list-image">
-            <img src="${img}" alt="${loadedImgs[index].keywords[0]} meme" 
+            <img class="saved-image" src="${img}" alt="${loadedImgs[index].keywords[0]} meme" 
             data-index="${index}" onclick="onLoadFromSaved(this)" />
-            <button data-index="${index}" class="delete-saved-button" onclick="onDeleteSaved(this)">Delete</button>
+            <button data-index="${index}" class="btn delete-saved-button" onclick="onDeleteSaved(this)">Delete</button>
         </article>`
     )
     .join('')

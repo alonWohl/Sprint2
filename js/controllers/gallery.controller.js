@@ -5,6 +5,7 @@ let gGalleryRendered = false
 function onInit() {
   document.body.classList.remove('menu-open');
   document.querySelector('.meme-gallery-page').classList.remove('hidden')
+  document.querySelector('.saved-memes-page').classList.add('hidden')
   document.querySelector('.filter-section').classList.remove('hidden')
   document.querySelector('.gallery-btn').classList.add('hidden')
   document.querySelector('.saved-btn').classList.remove('hidden')

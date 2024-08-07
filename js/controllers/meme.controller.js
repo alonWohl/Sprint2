@@ -20,6 +20,7 @@ function openEditor() {
   document.querySelector('.filter-section').classList.add('hidden')
 
   document.querySelector('.meme-gallery-page').classList.add('hidden')
+  document.querySelector('.saved-memes-page').classList.add('hidden')
   document.querySelector('.editor-page').classList.remove('hidden')
 
   gElImg = null
