@@ -94,7 +94,7 @@ function setLineTxt(text) {
   if (!gMeme.lines.length) return
   resetSelectedLine()
   const lineIdx = gMeme.selectedLineIdx
-  gMeme.lines[lineIdx].txt = text || 'Add Text Here'
+  gMeme.lines[lineIdx].txt = text
 }
 
 function setLineFillStyle(color) {
@@ -158,7 +158,7 @@ function setLineAlign(align) {
 }
 
 function _createLine({
-  txt,
+  txt = 'Add Text Here',
   size = 40,
   align = 'left',
   strokeStyle = '#000000',
@@ -264,27 +264,27 @@ function saveMeme(meme, img, editedImg) {
 }
 
 function deleteSaved(idx) {
-  const memes = loadFromStorage(MEME_STORAGE_KEY) || [];
-  const imgs = loadFromStorage(IMG_STORAGE_KEY) || [];
-  const editedImgs = loadFromStorage(EDITED_IMG_STORAGE_KEY) || [];
+  const memes = loadFromStorage(MEME_STORAGE_KEY) || []
+  const imgs = loadFromStorage(IMG_STORAGE_KEY) || []
+  const editedImgs = loadFromStorage(EDITED_IMG_STORAGE_KEY) || []
 
-  memes.splice(idx, 1);
-  imgs.splice(idx, 1);
-  editedImgs.splice(idx, 1);
+  memes.splice(idx, 1)
+  imgs.splice(idx, 1)
+  editedImgs.splice(idx, 1)
 
-  saveToStorage(MEME_STORAGE_KEY, memes);
-  saveToStorage(IMG_STORAGE_KEY, imgs);
-  saveToStorage(EDITED_IMG_STORAGE_KEY, editedImgs);
+  saveToStorage(MEME_STORAGE_KEY, memes)
+  saveToStorage(IMG_STORAGE_KEY, imgs)
+  saveToStorage(EDITED_IMG_STORAGE_KEY, editedImgs)
 }
 
 function getLoadedMemes() {
-  return loadFromStorage(MEME_STORAGE_KEY) || [];
+  return loadFromStorage(MEME_STORAGE_KEY) || []
 }
 
 function getLoadedImgs() {
-  return loadFromStorage(IMG_STORAGE_KEY) || [];
+  return loadFromStorage(IMG_STORAGE_KEY) || []
 }
 
 function getloadedEditedImgs() {
-  return loadFromStorage(EDITED_IMG_STORAGE_KEY) || [];
+  return loadFromStorage(EDITED_IMG_STORAGE_KEY) || []
 }

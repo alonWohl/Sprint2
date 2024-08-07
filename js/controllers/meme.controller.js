@@ -36,10 +36,11 @@ function openEditor() {
   resetInputs()
 
   if (!gIsListenersAdded) addCanvasEventListeners()
-  resizeCanvas()
+  onResizeCanvas()
 }
 
 function addCanvasEventListeners() {
+  window.addEventListener('resize',onResizeCanvas)
   gElCanvas.addEventListener('mousedown', onDown)
   gElCanvas.addEventListener('mousemove', onMove)
   gElCanvas.addEventListener('mouseup', onUp)
@@ -298,7 +299,7 @@ function onSetLineAlign(alignment) {
   renderMeme()
 }
 
-function resizeCanvas() {
+function onResizeCanvas() {
   const elContainer = document.querySelector('.meme-canvas')
   gElCanvas.width = Math.min(elContainer.clientWidth - 10,500)
   renderMeme()
