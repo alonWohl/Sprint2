@@ -39,7 +39,7 @@ const STICKERS = ['😃', '😍', '🤯', '😂', '❤️', '😎', '😡', '�
 let gLinePos = { x: 50, y: 0 }
 let gImgs = []
 let gMeme = {}
-let gCurrFont = 'Impact'
+let gCurrFont = 'impact'
 
 _createImgs()
 

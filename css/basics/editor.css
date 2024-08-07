@@ -47,7 +47,8 @@
     border: none;
 }
 
-.controls select {
+.font-picker {
+    background-color: white;
     border: none;
     border-radius: 8px;
 

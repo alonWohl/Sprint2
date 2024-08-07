@@ -260,9 +260,11 @@ function updateEditorInputs() {
   const elStrokePicker = document.querySelector('#strokePicker')
   const elFillPicker = document.querySelector('#fillPicker')
 
+
   elTextInput.value = currLine.txt || ''
   elStrokePicker.value = currLine.strokeStyle || '#000000'
   elFillPicker.value = currLine.fillStyle || '#FFFFFF'
+  
 }
 
 function downloadImg(elLink) {
