@@ -15,6 +15,7 @@ let gIsListenersAdded = false,
   gIsDrag = false
 
 function openEditor() {
+  document.body.classList.remove('menu-open');
   document.querySelector('.gallery-btn').classList.remove('hidden')
   document.querySelector('.filter-section').classList.add('hidden')
 

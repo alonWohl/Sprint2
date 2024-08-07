@@ -1,6 +1,7 @@
 'use strict'
 
 function onSavedInit() {
+  document.body.classList.remove('menu-open');
   document.querySelector('.saved-memes-page').classList.remove('hidden')
   document.querySelector('.meme-gallery-page').classList.add('hidden')
   document.querySelector('.editor-page').classList.add('hidden')

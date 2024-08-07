@@ -36,6 +36,8 @@
 
         transform: translateX(100%);
         background-color:var(--secondary-base);
+        
+        z-index: 1;
     } 
 
     .menu-open .main-nav{
