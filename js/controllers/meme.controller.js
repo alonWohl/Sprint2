@@ -40,7 +40,6 @@ function openEditor() {
 }
 
 function addCanvasEventListeners() {
-  window.addEventListener('resize', resizeCanvas)
   gElCanvas.addEventListener('mousedown', onDown)
   gElCanvas.addEventListener('mousemove', onMove)
   gElCanvas.addEventListener('mouseup', onUp)
