@@ -20,7 +20,7 @@ function renderSaved() {
       (img, index) =>
         `<article class="meme-list-image">
             <img class="saved-image" src="${img}" alt="${loadedImgs[index].keywords[0]} meme" 
-            data-index="${index}" onclick="onLoadFromSaved(this)" />
+            data-index="${index}" onclick="onLoadFromSaved(this)"/>
             <button data-index="${index}" class="btn delete-saved-button" onclick="onDeleteSaved(this)">Delete</button>
         </article>`
     )
@@ -34,7 +34,7 @@ function onLoadFromSaved(elImg) {
   const loadedMemes = getLoadedMemes()
   const selectedMeme = loadedMemes[elImg.dataset.index]
   loadMeme(selectedMeme)
-  openMemeEditor()
+  openEditor()
 }
 
 function onDeleteSaved(elImg) {

@@ -2,12 +2,14 @@
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 const CLICK_MARGIN = 10
+const DEFAULT_CANVAS_WIDTH = 500
 
 let gElCanvas
 let gCtx
 let gElImg
 let gStartPos = {}
 let slideIndex
+let gCanvasWidth = DEFAULT_CANVAS_WIDTH
 
 let gIsListenersAdded = false,
   gIsMouseDown = false,
@@ -15,7 +17,7 @@ let gIsListenersAdded = false,
   gIsDrag = false
 
 function openEditor() {
-  document.body.classList.remove('menu-open');
+  document.body.classList.remove('menu-open')
   document.querySelector('.gallery-btn').classList.remove('hidden')
   document.querySelector('.filter-section').classList.add('hidden')
 
@@ -35,6 +37,7 @@ function openEditor() {
   resetInputs()
 
   if (!gIsListenersAdded) addCanvasEventListeners()
+  resizeCanvas()
 }
 
 function addCanvasEventListeners() {
@@ -67,7 +70,10 @@ function renderMeme() {
 }
 
 function renderImage(meme) {
+  gElCanvas.height =
+    (gElImg.naturalHeight / gElImg.naturalWidth) * gElCanvas.width
   gCtx.drawImage(gElImg, 0, 0, gElCanvas.width, gElCanvas.height)
+
   drawText(meme.lines)
 
   const line = getCurrLine()
@@ -261,6 +267,8 @@ function updateEditorInputs() {
 }
 
 function downloadImg(elLink) {
+  setLineEmpty()
+  renderMeme()
   const imgContent = gElCanvas.toDataURL('image/jpeg')
   elLink.href = imgContent
 }
@@ -294,7 +302,6 @@ function onSetLineAlign(alignment) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.meme-canvas')
-
   gElCanvas.width = Math.min(elContainer.clientWidth - 10, 500)
   renderMeme()
 }
@@ -345,12 +352,52 @@ function onSaveMeme() {
   const imgData = gElCanvas.toDataURL('image/jpeg')
   saveMeme(meme, currImg, imgData)
 
-  const savedModal = document.querySelector(
-    '.save-confirmation-modal'
-  )
+  const savedModal = document.querySelector('.save-confirmation-modal')
   savedModal.classList.add('shown')
 
   setTimeout(() => {
     savedModal.classList.remove('shown')
   }, 2000)
+}
+
+function onShareMeme() {
+  setLineEmpty()
+  renderMeme()
+
+  const imgData = gElCanvas.toDataURL('image/jpeg')
+  const blob = dataURItoBlob(imgData)
+  const file = new File([blob], 'meme.jpg', { type: 'image/jpeg' })
+
+  if (navigator.share) {
+    navigator
+      .share({
+        title: 'Check out this meme!',
+        text: 'I made this meme, check it out!',
+        files: [file],
+      })
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.log('Error sharing', error))
+  } else {
+    // Fallback for unsupported browsers
+    const shareUrl = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = shareUrl
+    link.download = 'meme.jpg'
+    link.click()
+    URL.revokeObjectURL(shareUrl)
+    alert(
+      'Web Share API is not supported in your browser. The meme has been downloaded instead.'
+    )
+  }
+}
+
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1])
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+  const ab = new ArrayBuffer(byteString.length)
+  const ia = new Uint8Array(ab)
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i)
+  }
+  return new Blob([ab], { type: mimeString })
 }

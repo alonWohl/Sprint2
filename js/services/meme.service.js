@@ -249,14 +249,14 @@ function updateKeyWordMap(keyword, count) {
   keywordsMap[keyword] = count
 }
 
-function saveMeme(meme, img, annotatedImg) {
+function saveMeme(meme, img, editedImg) {
   const memes = loadFromStorage(MEME_STORAGE_KEY) || []
   const imgs = loadFromStorage(IMG_STORAGE_KEY) || []
   const editedImgs = loadFromStorage(EDITED_IMG_STORAGE_KEY) || []
 
   memes.push(meme)
   imgs.push(img)
-  editedImgs.push(annotatedImg)
+  editedImgs.push(editedImg)
 
   saveToStorage(MEME_STORAGE_KEY, memes)
   saveToStorage(IMG_STORAGE_KEY, imgs)

@@ -7,7 +7,8 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: var(--primary1);
+    background-color: var(--primary-1);
+   height: 100vh;
 }
 
 img {
@@ -43,4 +44,9 @@ button {
 
 .btn:hover{
     background-color:  #ff8000b5;
+}
+
+.main-layout{
+    display: flex;
+    flex-direction: column;
 }

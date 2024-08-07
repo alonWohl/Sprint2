@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <title>Meme Generator</title>
   </head>
-  <body onload="onInit()">
+  <body class="main-layout" onload="onInit()">
 
     <div class="main-screen" onclick="onToggleMenu()"></div>
 
@@ -24,7 +24,7 @@
 
     <section class="filter-section">
       <div class="filter-search">
-        <input class="search-meme" type="search" list="key-words" placeholder="search" oninput="onSearchMeme(this.value)">
+        <input class="search-meme" type="search" list="key-words" placeholder="Enter Search Keywords" oninput="onSearchMeme(this.value)">
         
         <datalist id="key-words">
           <option value="funny">funny</option>                                       
@@ -89,8 +89,9 @@
 </div>
 
 <div class="save-container">
-  <a href="#" data-trans="save" class="btn btn-save" onclick="onSaveMeme()">save</a>
+  <a href="#" data-trans="save" class="btn btn-save" onclick="onSaveMeme()">Save</a>
 <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+<a href="#" class="btn" onclick="onShareMeme()">Share</a>
 <div class="save-confirmation-modal hidden">Saved meme successfully</div>
 </div>
 
@@ -102,7 +103,7 @@
     </section>
 
     <footer class="main-footer">
-      <p>memegen</p>
+      <div class="logo">memegen</div>
       <p>all rights reserved 2024</p>
     </footer>
 

@@ -1,4 +1,3 @@
-
 .gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -20,6 +19,18 @@
     display: flex;
     justify-content: space-between;
     padding: 1em;
+    background-color: #fff;
+}
+
+.search-meme {
+    border: none;
+    border-block-end: #000 1px solid;
+    width: 24ch;
+    
+}
+
+.search-meme:focus{
+outline: transparent;
 }
 
 .key-words-container {
