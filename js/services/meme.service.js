@@ -1,7 +1,8 @@
 'use strict'
 
 const MEME_STORAGE_KEY = 'MEME'
-const IMG_STORAGE_KEY = 'IMG'
+const IMG_STORAGE_KEY = 'IMAGE'
+const EDITED_IMG_STORAGE_KEY = 'EDITED_IMAGES'
 
 const FONTS = [
   'impact',
@@ -33,6 +34,8 @@ const keywordsMap = {
   bad: 15,
 }
 
+const STICKERS = ['😃', '😍', '🤯', '😂', '❤️', '😎', '😡', '🥺', '🤩', '🙃']
+
 let gLinePos = { x: 50, y: 0 }
 let gImgs = []
 let gMeme = {}
@@ -56,6 +59,10 @@ function getImgs(filter) {
 
 function getFonts() {
   return FONTS
+}
+
+function getStickers() {
+  return STICKERS
 }
 
 function getKeyWordsMap() {
@@ -116,6 +123,12 @@ function addLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
+function addEmoji(txt) {
+  const newEmoji = _createLine({ txt })
+  gMeme.lines.push(newEmoji)
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
 function removeLine() {
   if (gMeme.selectedLineIdx === -1) return
   gMeme.lines.splice(gMeme.selectedLineIdx, 1)
@@ -145,7 +158,7 @@ function setLineAlign(align) {
 }
 
 function _createLine({
-  txt = 'Add Text Here',
+  txt,
   size = 40,
   align = 'left',
   strokeStyle = '#000000',
@@ -190,10 +203,19 @@ function setMeme(img) {
 
   let memeImg = getImgByUrl(img.getAttribute('src'))
 
+  gLinePos = { x: 50, y: 0 }
   gMeme = {
     selectedImgId: memeImg.id,
     selectedLineIdx: 0,
     lines,
+  }
+}
+
+function loadMeme(meme) {
+  gMeme = {
+    selectedImgId: meme.selectedImgId,
+    selectedLineIdx: meme.selectedLineIdx,
+    lines: structuredClone(meme.lines),
   }
 }
 
@@ -225,4 +247,44 @@ function getRandomKeyWords(keywords) {
 
 function updateKeyWordMap(keyword, count) {
   keywordsMap[keyword] = count
+}
+
+function saveMeme(meme, img, annotatedImg) {
+  const memes = loadFromStorage(MEME_STORAGE_KEY) || []
+  const imgs = loadFromStorage(IMG_STORAGE_KEY) || []
+  const editedImgs = loadFromStorage(EDITED_IMG_STORAGE_KEY) || []
+
+  memes.push(meme)
+  imgs.push(img)
+  editedImgs.push(annotatedImg)
+
+  saveToStorage(MEME_STORAGE_KEY, memes)
+  saveToStorage(IMG_STORAGE_KEY, imgs)
+  saveToStorage(EDITED_IMG_STORAGE_KEY, editedImgs)
+}
+
+function deleteSaved(idx) {
+  const memes = loadFromStorage(MEME_STORAGE_KEY) || [];
+  const imgs = loadFromStorage(IMG_STORAGE_KEY) || [];
+  const editedImgs = loadFromStorage(EDITED_IMG_STORAGE_KEY) || [];
+
+  memes.splice(idx, 1);
+  imgs.splice(idx, 1);
+  editedImgs.splice(idx, 1);
+
+  saveToStorage(MEME_STORAGE_KEY, memes);
+  saveToStorage(IMG_STORAGE_KEY, imgs);
+  saveToStorage(EDITED_IMG_STORAGE_KEY, editedImgs);
+}
+
+function getLoadedMemes() {
+  return loadFromStorage(MEME_STORAGE_KEY) || [];
+}
+
+function getLoadedImgs() {
+  return loadFromStorage(IMG_STORAGE_KEY) || [];
+}
+
+function getloadedEditedImgs() {
+  return loadFromStorage(EDITED_IMG_STORAGE_KEY) || [];
 }

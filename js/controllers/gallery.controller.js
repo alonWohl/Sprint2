@@ -3,10 +3,12 @@
 let gGalleryRendered = false
 
 function onInit() {
-  document.querySelector('.gallery-container').classList.remove('hidden')
+  document.querySelector('.meme-gallery-page').classList.remove('hidden')
   document.querySelector('.filter-section').classList.remove('hidden')
   document.querySelector('.gallery-btn').classList.add('hidden')
+  document.querySelector('.saved-btn').classList.remove('hidden')
   document.querySelector('.editor-page').classList.add('hidden')
+
 
   if (!gGalleryRendered) renderGallery()
   renderKeywordsSize()
@@ -61,4 +63,8 @@ function onClickedKeyword(keyword) {
 function onSearchMeme(keyword) {
   renderGallery(keyword)
   updateKeyWordSize(keyword)
+}
+
+function onToggleMenu() {
+  document.body.classList.toggle('menu-open');
 }

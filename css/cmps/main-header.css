@@ -1,0 +1,33 @@
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    pad: 1em 2em;
+    background-color: var(--secondary-base);
+    color: white;
+    ;
+}
+
+.main-header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-inline-start: 25px;
+}
+
+.nav-bar-container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-nav {
+    display: flex;
+    gap: 1em;
+}
+
+.main-nav a:hover{
+    background-color: #ffffff60;
+}
+

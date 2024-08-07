@@ -7,6 +7,7 @@ let gElCanvas
 let gCtx
 let gElImg
 let gStartPos = {}
+let slideIndex
 
 let gIsListenersAdded = false,
   gIsMouseDown = false,
@@ -17,15 +18,17 @@ function openEditor() {
   document.querySelector('.gallery-btn').classList.remove('hidden')
   document.querySelector('.filter-section').classList.add('hidden')
 
-  document.querySelector('.gallery-container').classList.add('hidden')
+  document.querySelector('.meme-gallery-page').classList.add('hidden')
   document.querySelector('.editor-page').classList.remove('hidden')
 
   gElImg = null
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   gCtx.lineWidth = '3'
+  slideIndex = 0
 
   renderFonts()
+  renderStickers()
   renderMeme()
   resetInputs()
 
@@ -292,4 +295,60 @@ function resizeCanvas() {
 
   gElCanvas.width = Math.min(elContainer.clientWidth - 10, 500)
   renderMeme()
+}
+
+function renderStickers() {
+  const elStickerContainer = document.querySelector('.stickers-slideshow')
+  const stickers = getStickers()
+
+  let stickersHtml = stickers
+    .map(
+      (sticker) =>
+        `<div class="sticker">
+     <div class="emoji" onclick="onAddEmoji(this)">${sticker}</div>
+     </div>`
+    )
+    .join('')
+  elStickerContainer.innerHTML = stickersHtml
+}
+
+function plusSlides(n) {
+  showSlides((slideIndex += n))
+}
+function showSlides(n) {
+  let slides = document.querySelectorAll('.sticker')
+  if (n > slides.length - 3) {
+    slideIndex = 0
+  }
+  if (n < 0) {
+    slideIndex = slides.length - 3
+  }
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.transform = `translateX(-${slideIndex * 33.33}%)`
+  }
+}
+
+function onAddEmoji(sticker) {
+  const emoji = sticker.innerText
+  addEmoji(emoji)
+  renderMeme()
+}
+
+function onSaveMeme() {
+  setLineEmpty()
+  renderMeme()
+
+  const meme = getMeme()
+  const currImg = getCurrImg()
+  const imgData = gElCanvas.toDataURL('image/jpeg')
+  saveMeme(meme, currImg, imgData)
+
+  const savedModal = document.querySelector(
+    '.save-confirmation-modal'
+  )
+  savedModal.classList.add('shown')
+
+  setTimeout(() => {
+    savedModal.classList.remove('shown')
+  }, 2000)
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title>Meme Generator</title>
   </head>
   <body onload="onInit()">
@@ -13,9 +13,10 @@
       <nav class="nav-bar-container">
         <ul class="main-nav">
           <li><a onclick="onInit()" class="btn gallery-btn">Gallery</a></li>
-          <li><a class="btn">Saved</a></li>
+          <li><a onclick="onSavedInit()" class="btn saved-btn">Saved</a></li>
         </ul>
       </nav>
+        <button class="btn-toggle-menu" onclick="onToggleMenu()">☰</button>
     </header>
 
     <section class="filter-section">
@@ -42,10 +43,11 @@
       </div>
 
     </section>
-    <section class="gallery-container">
+    <section class="meme-gallery-page">
+      <section class="gallery-container"></section>
     </section>
 
-    <section class="editor-page hidden">
+    <section class="editor-page">
 
     <div class="meme-canvas">
       <canvas width="500" height="500"></canvas>
@@ -71,13 +73,29 @@
 
 <div class="button-group">
   <select onchange="onSetFontFamily(this)" id="fontFamily"></select>
-  <button class="btn icon"><img src="svg/paint-board-and-brush.svg" class="fill-icon btn icon"><input oninput="onSetFillColor(this)" type="color" id="fillPicker"/></button>
+  <button class="btn icon"><img src="svg/paint-board-and-brush.svg"><input oninput="onSetFillColor(this)" type="color" id="fillPicker"/></button>
   <button class="btn icon"><img src="svg/text stroke.svg" alt=""><input oninput="onSetStrokeColor(this)"  type="color" id="strokePicker"></button>
 </div>
 </div>
 
-<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+<div class="slideshow-container">
+  <div class="stickers-slideshow">
+  </div>
+  <button class="next" onclick="plusSlides(1)">❯</button>
+  <button class="prev" onclick="plusSlides(-1)">❮</button>
 </div>
+
+<div class="save-container">
+  <a href="#" data-trans="save" class="btn btn-save" onclick="onSaveMeme()">save</a>
+<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+<div class="save-confirmation-modal hidden">Saved meme successfully</div>
+</div>
+
+</div>
+    </section>
+
+    <section class="saved-memes-page hidden">
+      <div class="saved-memes-container"></div>
     </section>
 
     <footer class="main-footer">
@@ -90,5 +108,6 @@
     <script src="js/services/meme.service.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>
     <script src="js/controllers/meme.controller.js"></script>
+    <script src="js/controllers/saved-memes.controller.js"></script>
   </body>
 </html>
