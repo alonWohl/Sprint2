@@ -2,14 +2,13 @@
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 const CLICK_MARGIN = 10
-const DEFAULT_CANVAS_WIDTH = 500
 
 let gElCanvas
 let gCtx
 let gElImg
 let gStartPos = {}
 let slideIndex
-let gCanvasWidth = DEFAULT_CANVAS_WIDTH
+
 
 let gIsListenersAdded = false,
   gIsMouseDown = false,
@@ -302,7 +301,7 @@ function onSetLineAlign(alignment) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.meme-canvas')
-  gElCanvas.width = Math.min(elContainer.clientWidth - 10, 500)
+  gElCanvas.width = Math.min(elContainer.clientWidth - 10,500)
   renderMeme()
 }
 
